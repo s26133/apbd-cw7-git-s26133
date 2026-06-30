@@ -7,6 +7,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite("Data Source=helpdesk.db"));
 builder.Services.AddScoped<MiniHelpdesk.Repositories.ITicketRepository, MiniHelpdesk.Repositories.TicketRepository>();
+builder.Services.AddScoped<MiniHelpdesk.Services.ITicketService, MiniHelpdesk.Services.TicketService>();
 
 var app = builder.Build();
 
