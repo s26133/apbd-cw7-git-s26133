@@ -11,16 +11,16 @@ builder.Services.AddScoped<MiniHelpdesk.Services.ITicketService, MiniHelpdesk.Se
 
 var app = builder.Build();
 
+app.UseMiddleware<MiniHelpdesk.Middleware.RequestTimingMiddleware>();
+
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     db.Database.EnsureCreated();
 }
 
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Home/Error");
-}
+
+app.UseExceptionHandler("/Home/Error");
 app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthorization();
